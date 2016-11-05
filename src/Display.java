@@ -153,20 +153,29 @@ import java.awt.event.ActionEvent;
 
 
 		public void mouseClicked(MouseEvent arg0) {
-			cell[4][5].setAlive(true);
-			repaint();
+			int CellX = (arg0.getX() -X_GRID_OFFSET)/(CELL_WIDTH+1);
+			int CellY = (arg0.getY()-Y_GRID_OFFSET)/(CELL_HEIGHT+1);
+			System.out.println(arg0.getX() + " "+arg0.getY() );
+			System.out.println(CellX +" " +CellY);
+			
+			if((CellX>=0 && CellX<=99) && (CellY>=0 && CellY<=79)){
+		
+			
+			
 			System.out.println(arg0);
 			
 				getCell(arg0).setAlive(true);
 				
-								
+				repaint();
+				
+			}				
 		}
 				
 			
 	//getting cell mouse is hovered on
 		private Cell getCell(MouseEvent arg0){
-				int CellX = (arg0.getX()-X_GRID_OFFSET)/CELL_WIDTH;
-				int CellY = (arg0.getY()-Y_GRID_OFFSET)/CELL_HEIGHT;
+				int CellX = (arg0.getX() -X_GRID_OFFSET)/(CELL_WIDTH+1);
+				int CellY = (arg0.getY()-Y_GRID_OFFSET)/(CELL_HEIGHT+1);
 				System.out.println(arg0.getX() + " "+arg0.getY() );
 				System.out.println(CellX +" " +CellY);
 				return cell[CellY][CellX];
@@ -195,7 +204,21 @@ import java.awt.event.ActionEvent;
 
 
 		public void mouseDragged(MouseEvent arg0) {
-
+			int CellX = (arg0.getX() -X_GRID_OFFSET)/(CELL_WIDTH+1);
+			int CellY = (arg0.getY()-Y_GRID_OFFSET)/(CELL_HEIGHT+1);
+			System.out.println(arg0.getX() + " "+arg0.getY() );
+			System.out.println(CellX +" " +CellY);
+			
+			if((CellX>=0 && CellX<=99) && (CellY>=0 && CellY<=79)){
+		
+			
+			
+			System.out.println(arg0);
+			
+				getCell(arg0).setAlive(true);
+				
+				repaint();
+			}
 		
 		}
 
