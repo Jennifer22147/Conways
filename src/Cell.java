@@ -1,7 +1,5 @@
-/*
- * Created on Dec 1, 2004
- * Last update: June 24, 2010
- */
+// Created on Dec 1, 2004
+
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -72,9 +70,44 @@ public class Cell {
 	}
 
 	public void calcNeighbors(Cell[][] cell) {
-		// You write this
+		int myNeighbors = 0;
+		
+		for (int i = getY() -1; i <= getY() + 1; i++){
+			
+			if (i== -1 || i == 80){
+				continue; 
+			}
+			
+			
+			for (int j = getX() -1; j <= getX() + 1; j++ ){
+				
+				if (j == -1 || j == 100){
+					continue;
+				}
+				
+				if (cell[i][j].getAlive()){
+					myNeighbors++;
+				}
+				
+			}
+			
+		}
+		
+		if (cell[getY()][getX()].getAlive()){
+			myNeighbors--;
+		}
+        System.out.println(myNeighbors);	
 	}
-
+	
+	
+	
+		
+		
+		
+		
+		
+	
+	
 	public void draw(int x_offset, int y_offset, int width, int height,
 			Graphics g) {
 		// I leave this understanding to the reader

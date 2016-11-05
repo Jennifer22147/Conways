@@ -6,7 +6,8 @@
 	 
 	import java.awt.Color;
 	import java.awt.Graphics;
-	import java.awt.event.ActionEvent;
+import java.awt.Point;
+import java.awt.event.ActionEvent;
 	import java.awt.event.ActionListener;
 	import java.awt.event.MouseEvent;
 	import java.awt.event.MouseListener;
@@ -91,6 +92,14 @@
 			cell[36][22].setAlive(true); // sample use of cell mutator method
 			cell[36][23].setAlive(true); // sample use of cell mutator method
 			cell[36][24].setAlive(true); // sample use of cell mutator method
+			cell[23][36].calcNeighbors(cell);
+			cell[36][23].calcNeighbors(cell);
+			cell[0][0].calcNeighbors(cell);
+			cell[36][22].calcNeighbors(cell);
+		
+			
+
+
 		}
 
 
@@ -144,14 +153,31 @@
 
 
 		public void mouseClicked(MouseEvent arg0) {
-
+			cell[4][5].setAlive(true);
+			repaint();
+			System.out.println(arg0);
+			
+				getCell(arg0).setAlive(true);
+				
+								
+		}
+				
+			
+	//getting cell mouse is hovered on
+		private Cell getCell(MouseEvent arg0){
+				int CellX = (arg0.getX()-X_GRID_OFFSET)/CELL_WIDTH;
+				int CellY = (arg0.getY()-Y_GRID_OFFSET)/CELL_HEIGHT;
+				System.out.println(arg0.getX() + " "+arg0.getY() );
+				System.out.println(CellX +" " +CellY);
+				return cell[CellY][CellX];
 		}
 
 
 		public void mouseEntered(MouseEvent arg0) {
-
+		
+					
+			
 		}
-
 
 		public void mouseExited(MouseEvent arg0) {
 
@@ -170,11 +196,22 @@
 
 		public void mouseDragged(MouseEvent arg0) {
 
+		
 		}
 
 
 		public void mouseMoved(MouseEvent arg0) {
-			
+			/*Point point = arg0.getPoint();
+			 
+			if (arg0.getX() >= 25 && arg0.getY() >=40){
+				int column = (arg0.getX()-25)/5;
+				int row = (arg0.getY()-40)/5;
+					
+					if(column >= 0 && row>+0 && column<100 && row <80){
+						
+					}
+			}
+			*/
 		}
 		
 
