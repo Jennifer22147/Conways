@@ -148,16 +148,45 @@ import java.awt.event.ActionEvent;
 
 
 		private void nextGeneration() {
-
+			for (int j = 0; j < 100; j++) {
+				for (int i = 0; i < 80 ; i++) {
+					cell[i][j].calcNeighbors(cell);
+					if(cell[i][j].getNeighbors()<2){
+						cell[i][j].setAliveNextTurn(false);
+						
+					}
+					else if(cell[i][j].getNeighbors()<4){
+						cell[i][j].setAliveNextTurn(true);
+					}
+					else  {
+						cell[i][j].setAliveNextTurn(false);
+					 }
+				}
+			}
+			
+			for (int a = 0; a < 100; a++) {
+				for (int b = 0; b < 80 ; b++) {
+					
+					cell[b][a].setAlive(cell[b][a].getAliveNextTurn());
+					repaint();
+				}
+			}
+			
+				
 		}
+
+		
 
 
 		public void mouseClicked(MouseEvent arg0) {
-			cell[4][5].setAlive(true);
+			
+			
 			repaint();
 			System.out.println(arg0);
 			
+			
 				getCell(arg0).setAlive(true);
+				
 				
 								
 		}
@@ -165,10 +194,10 @@ import java.awt.event.ActionEvent;
 			
 	//getting cell mouse is hovered on
 		private Cell getCell(MouseEvent arg0){
-				int CellX = (arg0.getX()-X_GRID_OFFSET)/CELL_WIDTH;
-				int CellY = (arg0.getY()-Y_GRID_OFFSET)/CELL_HEIGHT;
-				System.out.println(arg0.getX() + " "+arg0.getY() );
-				System.out.println(CellX +" " +CellY);
+			
+				int CellX = (arg0.getX()-X_GRID_OFFSET)/(CELL_WIDTH +1) ;
+				int CellY = (arg0.getY()-Y_GRID_OFFSET)/(CELL_HEIGHT +1);
+			
 				return cell[CellY][CellX];
 		}
 
@@ -195,6 +224,10 @@ import java.awt.event.ActionEvent;
 
 
 		public void mouseDragged(MouseEvent arg0) {
+			
+			getCell(arg0).setAlive(true);
+			repaint();
+			
 
 		
 		}
@@ -219,17 +252,19 @@ import java.awt.event.ActionEvent;
 			StartButton() {
 				super("Start");
 				addActionListener(this);
+				nextGeneration();
 			}
 
 			public void actionPerformed(ActionEvent arg0) {
-				// nextGeneration(); // test the start button
+		
 				if (this.getText().equals("Start")) {
 					togglePaintLoop();
 					setText("Stop");
 				} else {
 					togglePaintLoop();
 					setText("Start");
-				}
+				}	 
+				
 				repaint();
 			}
 		}

@@ -96,7 +96,7 @@ public class Cell {
 		if (cell[getY()][getX()].getAlive()){
 			myNeighbors--;
 		}
-        System.out.println(myNeighbors);	
+       
 	}
 	
 	
