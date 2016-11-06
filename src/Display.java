@@ -96,6 +96,7 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 		cell[36][23].calcNeighbors(cell);
 		cell[0][0].calcNeighbors(cell);
 		cell[36][22].calcNeighbors(cell);
+	
 
 
 
@@ -151,15 +152,16 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 		for (int j = 0; j < 100; j++) {
 			for (int i = 0; i < 80 ; i++) {
 				cell[i][j].calcNeighbors(cell);
-				if(cell[i][j].getNeighbors()<2){
-					cell[i][j].setAliveNextTurn(false);
-
+				if(cell[i][j].getAlive()==true){
+					if(cell[i][j].getNeighbors()<4 && cell[i][j].getNeighbors()>1){
+						cell[i][j].setAliveNextTurn(true);
+					}
+					else  {
+						cell[i][j].setAliveNextTurn(false);
+					}
 				}
-				else if(cell[i][j].getNeighbors()<4){
+				if (cell[i][j].getAlive()==false && cell[i][j].getNeighbors()==3){
 					cell[i][j].setAliveNextTurn(true);
-				}
-				else  {
-					cell[i][j].setAliveNextTurn(false);
 				}
 			}
 		}
@@ -181,15 +183,12 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 	public void mouseClicked(MouseEvent arg0) {
 		int CellX = (arg0.getX() -X_GRID_OFFSET)/(CELL_WIDTH+1);
 		int CellY = (arg0.getY()-Y_GRID_OFFSET)/(CELL_HEIGHT+1);
-		System.out.println(arg0.getX() + " "+arg0.getY() );
-		System.out.println(CellX +" " +CellY);
-
 		if((CellX>=0 && CellX<=99) && (CellY>=0 && CellY<=79)){
 
-			System.out.println(arg0);
+			
 
 
-			getCell(arg0).setAlive(true);
+			getCell(arg0).setAlive(!getCell(arg0).getAlive());
 
 			repaint();
 
@@ -202,8 +201,6 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 
 		int CellX = (arg0.getX() -X_GRID_OFFSET)/(CELL_WIDTH+1);
 		int CellY = (arg0.getY()-Y_GRID_OFFSET)/(CELL_HEIGHT+1);
-		System.out.println(arg0.getX() + " "+arg0.getY() );
-		System.out.println(CellX +" " +CellY);
 		return cell[CellY][CellX];
 	}
 
@@ -231,12 +228,10 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 
 		int CellX = (arg0.getX() -X_GRID_OFFSET)/(CELL_WIDTH+1);
 		int CellY = (arg0.getY()-Y_GRID_OFFSET)/(CELL_HEIGHT+1);
-		System.out.println(arg0.getX() + " "+arg0.getY() );
-		System.out.println(CellX +" " +CellY);
-
+		
 		if((CellX>=0 && CellX<=99) && (CellY>=0 && CellY<=79)){
 
-			System.out.println(arg0);
+			
 
 			getCell(arg0).setAlive(true);
 
@@ -265,7 +260,7 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 		StartButton() {
 			super("Start");
 			addActionListener(this);
-			nextGeneration();
+			
 		}
 
 		public void actionPerformed(ActionEvent arg0) {
@@ -273,9 +268,11 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 			if (this.getText().equals("Start")) {
 				togglePaintLoop();
 				setText("Stop");
+				nextGeneration();
 			} else {
 				togglePaintLoop();
 				setText("Start");
+				
 			}	 
 
 			repaint();

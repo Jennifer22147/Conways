@@ -68,6 +68,10 @@ public class Cell {
 	public int getNeighbors() {
 		return myNeighbors;
 	}
+	
+	public void setNeighbors(int neighbors){	
+		myNeighbors= neighbors;
+	}
 
 	public void calcNeighbors(Cell[][] cell) {
 		int myNeighbors = 0;
@@ -96,7 +100,7 @@ public class Cell {
 		if (cell[getY()][getX()].getAlive()){
 			myNeighbors--;
 		}
-       
+       cell[getY()][getX()].setNeighbors(myNeighbors);
 	}
 	
 	
