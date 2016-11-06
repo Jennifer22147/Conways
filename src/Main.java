@@ -19,6 +19,5 @@ public class Main {
 		f.setTitle("Conway's Game of Life");
 		f.add(display);
 		f.setVisible(true);
-
 	}
 }
