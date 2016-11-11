@@ -35,6 +35,8 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 	private final int DISPLAY_WIDTH;   
 	private final int DISPLAY_HEIGHT;
 	private StartButton startStop;
+	private ClearButton clear;
+	private NextButton next;
 	private boolean paintloop = false;
 
 
@@ -56,8 +58,16 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 		// See the StartButton class nested below.
 		startStop = new StartButton();
 		startStop.setBounds(100, 550, 100, 36);
+		clear = new ClearButton();
+		clear.setBounds(300, 550, 100, 36);
+		next = new NextButton();
+		next.setBounds(500, 550, 100, 36);
 		add(startStop);
 		startStop.setVisible(true);
+		add(clear);
+		clear.setVisible(true);
+		add(next);
+		next.setVisible(true);
 		repaint();
 	}
 
@@ -145,6 +155,21 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 
 	private void drawButtons() {
 		startStop.repaint();
+		clear.repaint();
+		next.repaint();
+	}
+	
+	public void clear() {
+		for (int g = 0; g < 100; g++) {
+			for (int h = 0; h < 80 ; h++) {
+				System.out.println(cell[h][g].getAlive());
+				cell[h][g].setAlive(false);
+				cell[h][g].setAliveNextTurn(false);
+				repaint();
+
+			}
+			
+		}
 	}
 
 
@@ -184,10 +209,7 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 		int CellX = (arg0.getX() -X_GRID_OFFSET)/(CELL_WIDTH+1);
 		int CellY = (arg0.getY()-Y_GRID_OFFSET)/(CELL_HEIGHT+1);
 		if((CellX>=0 && CellX<=99) && (CellY>=0 && CellY<=79)){
-
 			
-
-
 			getCell(arg0).setAlive(!getCell(arg0).getAlive());
 
 			repaint();
@@ -278,4 +300,46 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 			repaint();
 		}
 	}
+	
+	
+	
+	
+	private class ClearButton extends JButton implements ActionListener {
+		ClearButton() {
+			super("Clear");
+			addActionListener(this);
+			
+		}
+
+		public void actionPerformed(ActionEvent arg0) {
+			System.out.println("clicked");
+			clear();
+			
+		}
+	
+	
+	
+	
+	}
+	
+	private class NextButton extends JButton implements ActionListener {
+		NextButton() {
+			super("Next");
+			addActionListener(this);
+			
+		}
+
+		public void actionPerformed(ActionEvent arg0) {
+
+			if (paintloop==false) {
+				nextGeneration();
+			}
+
+			repaint();
+		}
+	}
+	
+	
+	
+	
 }

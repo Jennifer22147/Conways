@@ -11,7 +11,7 @@ public class Cell {
 	private boolean myAliveNextTurn; // Used for state in next iteration
 	private Color myColor; // Based on alive/dead rules
 	private final Color DEFAULT_ALIVE = Color.ORANGE;
-	private final Color DEFAULT_DEAD = Color.GRAY;
+	final Color DEFAULT_DEAD = Color.GRAY;
 
 	public Cell(int x, int y) {
 		this(x, y, false, Color.GRAY);
