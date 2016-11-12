@@ -3,8 +3,14 @@
 
 import java.awt.Color;
 import java.awt.Graphics;
+/**
+* This represents a cell on the grid
+* It can be alive or dead
+* Use these methods to interact with it
+**/
 
 public class Cell {
+
 	private int myX, myY; // x,y position on grid
 	private boolean myAlive; // alive (true) or dead (false)
 	private int myNeighbors; // count of neighbors with respect to x,y
@@ -23,6 +29,7 @@ public class Cell {
 		myX = col;
 		myY = row;
 	}
+	
 
 	public boolean getAlive() {
 		return myAlive;
@@ -73,6 +80,11 @@ public class Cell {
 		myNeighbors= neighbors;
 	}
 
+	/**
+	 * This calculates the amount of neighbors a cell has
+	 * @param Cell[][] being calculated on
+	 *
+	 **/
 	public void calcNeighbors(Cell[][] cell) {
 		int myNeighbors = 0;
 		
@@ -104,14 +116,14 @@ public class Cell {
 	}
 	
 	
-	
-		
-		
-		
-		
-		
-	
-	
+	/**
+	 * draws the cells, used in display for drawing cells
+	 * @param x_offset for calculating the corners of the cell
+	 * @param y_offset for calculating the corners of the cell
+	 * @param width for calculating the width of the cell
+	 * @param height for calculating the height of the cell
+	 * @param g for drawing the cells on
+	 **/
 	public void draw(int x_offset, int y_offset, int width, int height,
 			Graphics g) {
 		// I leave this understanding to the reader

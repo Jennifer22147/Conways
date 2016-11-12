@@ -4,6 +4,11 @@
  */
 
 import javax.swing.JFrame;
+/**
+ * This is the main class.  
+ * It initializes the Display and JFrame
+ *
+ **/
 
 public class Main {
 

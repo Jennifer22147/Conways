@@ -21,6 +21,13 @@ import javax.swing.JComponent;
 // MousMotionListener interfaces are implemented and there is additional
 // code in init() to attach those interfaces to the JComponent.
 
+/**
+ * Display represents the grid the cells are on
+ * It can initialize the cells (the game)
+ * It has MouseEvent and MouseListener for user input
+ * Use these methods to interact with it
+ *
+ **/
 
 public class Display extends JComponent implements MouseListener, MouseMotionListener {
 	public static final int ROWS = 80;
@@ -46,7 +53,9 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 		init();
 	}
 
-
+	/**
+	 * This initializes the buttons and the cells
+	 **/
 	public void init() {
 		setSize(DISPLAY_WIDTH, DISPLAY_HEIGHT);
 		initCells();
@@ -70,8 +79,12 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 		next.setVisible(true);
 		repaint();
 	}
+	
 
-
+	/**
+	 * This runs nextGeneration at between certain intervals of time
+	 * @param g for graphics redrawing
+	 **/
 	public void paintComponent(Graphics g) {
 		final int TIME_BETWEEN_REPLOTS = 100; // change to your liking
 
@@ -91,7 +104,9 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 		}
 	}
 
-
+	/**
+	 * creates the cells as objects
+	 **/
 	public void initCells() {
 		for (int row = 0; row < ROWS; row++) {
 			for (int col = 0; col < COLS; col++) {
@@ -102,28 +117,31 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 		cell[36][22].setAlive(true); // sample use of cell mutator method
 		cell[36][23].setAlive(true); // sample use of cell mutator method
 		cell[36][24].setAlive(true); // sample use of cell mutator method
-		cell[23][36].calcNeighbors(cell);
-		cell[36][23].calcNeighbors(cell);
-		cell[0][0].calcNeighbors(cell);
-		cell[36][22].calcNeighbors(cell);
-	
-
 
 
 
 	}
 
-
+	/**
+	 * changes paintloop to the opposite of what it was
+	 **/
 	public void togglePaintLoop() {
 		paintloop = !paintloop;
 	}
 
-
+	/**
+	 * sets paintloop to the parameter
+	 * @param value is a boolean that paintloop is set to
+	 **/
 	public void setPaintLoop(boolean value) {
 		paintloop = value;
 	}
 
-
+	/**
+	 * draws columns and rows
+	 * 
+	 * @param g for grid to be drawn on
+	 **/
 	void drawGrid(Graphics g) {
 		for (int row = 0; row <= ROWS; row++) {
 			g.drawLine(X_GRID_OFFSET,
@@ -138,7 +156,9 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 		}
 	}
 
-
+	/**
+	 * draws the cells 
+	 **/
 	void drawCells(Graphics g) {
 		// Have each cell draw itself
 		for (int row = 0; row < ROWS; row++) {
@@ -152,17 +172,21 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 		}
 	}
 
-
+	/**
+	 * draws the buttons
+	 **/
 	private void drawButtons() {
 		startStop.repaint();
 		clear.repaint();
 		next.repaint();
 	}
 	
+	/**
+	 * This sets all cells to dead
+	 **/
 	public void clear() {
 		for (int g = 0; g < 100; g++) {
 			for (int h = 0; h < 80 ; h++) {
-				System.out.println(cell[h][g].getAlive());
 				cell[h][g].setAlive(false);
 				cell[h][g].setAliveNextTurn(false);
 				repaint();
@@ -172,7 +196,10 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 		}
 	}
 
-
+	/**
+	 * This calculates whether or not a cell would be alive in the next generation
+	 *
+	 **/
 	private void nextGeneration() {
 		for (int j = 0; j < 100; j++) {
 			for (int i = 0; i < 80 ; i++) {
@@ -204,7 +231,10 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 
 
 
-
+	/**
+	 * changes a cell's life to the opposite (live/dead) when clicked on
+	 * @param arg0 for mouse's position
+	 **/
 	public void mouseClicked(MouseEvent arg0) {
 		int CellX = (arg0.getX() -X_GRID_OFFSET)/(CELL_WIDTH+1);
 		int CellY = (arg0.getY()-Y_GRID_OFFSET)/(CELL_HEIGHT+1);
@@ -218,7 +248,11 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 	}
 
 
-	//getting cell mouse is hovered on
+	/**
+	 * This gets the cell that the mouse is hovered on
+	 * @return Cell mouse is on
+	 * @param arg0 for mouse position 
+	 **/
 	private Cell getCell(MouseEvent arg0){
 
 		int CellX = (arg0.getX() -X_GRID_OFFSET)/(CELL_WIDTH+1);
@@ -245,7 +279,10 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 
 	}
 
-
+	/**
+	 * Sets all cells mouse is dragged over to alive
+	 * @param arg0 for the position of the mouse
+	 **/
 	public void mouseDragged(MouseEvent arg0) {
 
 		int CellX = (arg0.getX() -X_GRID_OFFSET)/(CELL_WIDTH+1);
@@ -253,10 +290,7 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 		
 		if((CellX>=0 && CellX<=99) && (CellY>=0 && CellY<=79)){
 
-			
-
 			getCell(arg0).setAlive(true);
-
 			repaint();
 		}
 
@@ -264,20 +298,16 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 
 
 	public void mouseMoved(MouseEvent arg0) {
-		/*Point point = arg0.getPoint();
 
-			if (arg0.getX() >= 25 && arg0.getY() >=40){
-				int column = (arg0.getX()-25)/5;
-				int row = (arg0.getY()-40)/5;
-
-					if(column >= 0 && row>+0 && column<100 && row <80){
-
-					}
-			}
-		 */
 	}
 
-
+/**
+ * This represents the start button
+ * It can start and stop nextGeneration
+ * It changes when clicked on
+ *
+ **/
+	
 	private class StartButton extends JButton implements ActionListener {
 		StartButton() {
 			super("Start");
@@ -302,7 +332,12 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 	}
 	
 	
-	
+	/**
+	 * This represents the clear button
+	 * It can change all cells to be dead
+	 * It does so when clicked on
+	 *
+	 **/
 	
 	private class ClearButton extends JButton implements ActionListener {
 		ClearButton() {
@@ -312,15 +347,18 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 		}
 
 		public void actionPerformed(ActionEvent arg0) {
-			System.out.println("clicked");
 			clear();
 			
 		}
 	
-	
-	
-	
 	}
+	
+	/**
+	 * This represents the next button
+	 * It does nextGeneration once when clicked on
+	 * 
+	 *
+	 **/
 	
 	private class NextButton extends JButton implements ActionListener {
 		NextButton() {
