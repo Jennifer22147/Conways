@@ -11,7 +11,7 @@ public class Cell {
 	private boolean myAliveNextTurn; // Used for state in next iteration
 	private Color myColor; // Based on alive/dead rules
 	private final Color DEFAULT_ALIVE = Color.ORANGE;
-	private final Color DEFAULT_DEAD = Color.GRAY;
+	final Color DEFAULT_DEAD = Color.GRAY;
 
 	public Cell(int x, int y) {
 		this(x, y, false, Color.GRAY);
@@ -72,6 +72,10 @@ public class Cell {
 	public int getNeighbors() {
 		return myNeighbors;
 	}
+	
+	public void setNeighbors(int neighbors){	
+		myNeighbors= neighbors;
+	}
 
 	public void calcNeighbors(Cell[][] cell) {
 		int myNeighbors = 0;
@@ -100,9 +104,13 @@ public class Cell {
 		if (cell[getY()][getX()].getAlive()){
 			myNeighbors--;
 		}
+<<<<<<< HEAD
         System.out.println(myNeighbors);	
         cell[getY()][getX()].setNeighbors(myNeighbors);
         
+=======
+       cell[getY()][getX()].setNeighbors(myNeighbors);
+>>>>>>> ca3216c48fdeeea8b2085caad09d4cbd7acbceb8
 	}
 	
 	
