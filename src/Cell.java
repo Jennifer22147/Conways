@@ -64,6 +64,10 @@ public class Cell {
 	public void setColor(Color color) {
 		myColor = color;
 	}
+	
+	public void setNeighbors(int neighbors){
+		myNeighbors = neighbors;
+	}
 
 	public int getNeighbors() {
 		return myNeighbors;
@@ -97,6 +101,8 @@ public class Cell {
 			myNeighbors--;
 		}
         System.out.println(myNeighbors);	
+        cell[getY()][getX()].setNeighbors(myNeighbors);
+        
 	}
 	
 	

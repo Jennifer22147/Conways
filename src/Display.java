@@ -96,6 +96,7 @@ import java.awt.event.ActionEvent;
 			cell[36][23].calcNeighbors(cell);
 			cell[0][0].calcNeighbors(cell);
 			cell[36][22].calcNeighbors(cell);
+			System.out.println(cell[36][23].getNeighbors());
 		
 			
 
@@ -148,6 +149,8 @@ import java.awt.event.ActionEvent;
 
 
 		private void nextGeneration() {
+			
+			
 
 		}
 
@@ -252,6 +255,7 @@ import java.awt.event.ActionEvent;
 				} else {
 					togglePaintLoop();
 					setText("Start");
+					
 				}
 				repaint();
 			}
