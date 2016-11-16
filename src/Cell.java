@@ -115,7 +115,14 @@ public class Cell {
 		
 		
 		
-	
+	/**
+	*draws a cell
+	*@param x_offset the left edge of the cell
+	*@param y_offset the top edge of the cell
+	*@param width the width of the cell
+	*@param height the height of the cell
+	*@param g the Graphics object that draws stuff
+	*/
 	
 	public void draw(int x_offset, int y_offset, int width, int height,
 			Graphics g) {
