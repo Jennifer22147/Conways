@@ -21,7 +21,11 @@ import javax.swing.JComponent;
 // MousMotionListener interfaces are implemented and there is additional
 // code in init() to attach those interfaces to the JComponent.
 
-
+/**
+*draws everything every update
+*in charge of the display and manages the cells
+*a display object is one game
+*/
 public class Display extends JComponent implements MouseListener, MouseMotionListener {
 	public static final int ROWS = 80;
 	public static final int COLS = 100;
@@ -39,14 +43,20 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 	private NextButton next;
 	private boolean paintloop = false;
 
-
+	/**
+	*creates a display object and sets the width and the height
+	*@param width width of the board
+	*@param height height of the board
+	*/
 	public Display(int width, int height) {
 		DISPLAY_WIDTH = width;
 		DISPLAY_HEIGHT = height;
 		init();
 	}
 
-
+	/**
+	*sets game up by making boundaries and making things visible
+	*/
 	public void init() {
 		setSize(DISPLAY_WIDTH, DISPLAY_HEIGHT);
 		initCells();
@@ -71,9 +81,12 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 		repaint();
 	}
 
-
+	/**
+	*paints the board
+	*@param g object type Graphics that does drawing
+	*/
 	public void paintComponent(Graphics g) {
-		final int TIME_BETWEEN_REPLOTS = 100; // change to your liking
+		final int TIME_BETWEEN_REPLOTS = 5; // change to your liking
 
 		g.setColor(Color.BLACK);
 		drawGrid(g);
@@ -91,25 +104,17 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 		}
 	}
 
-
+	/**
+	*runs once at the beginning of the game
+	*creates objects and can set initial cells
+	*/
 	public void initCells() {
+		//fills each element of the array with a new object
 		for (int row = 0; row < ROWS; row++) {
 			for (int col = 0; col < COLS; col++) {
 				cell[row][col] = new Cell(row, col);
 			}
 		}
-
-		cell[36][22].setAlive(true); // sample use of cell mutator method
-		cell[36][23].setAlive(true); // sample use of cell mutator method
-		cell[36][24].setAlive(true); // sample use of cell mutator method
-		cell[23][36].calcNeighbors(cell);
-		cell[36][23].calcNeighbors(cell);
-		cell[0][0].calcNeighbors(cell);
-		cell[36][22].calcNeighbors(cell);
-		System.out.println(cell[36][23].getNeighbors());
-
-
-
 	}
 
 
@@ -122,7 +127,10 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 		paintloop = value;
 	}
 
-
+	/**
+	*draws the grid
+	*called every update of the game
+	*/
 	void drawGrid(Graphics g) {
 		for (int row = 0; row <= ROWS; row++) {
 			g.drawLine(X_GRID_OFFSET,
@@ -137,7 +145,10 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 		}
 	}
 
-
+	/**
+	*drawing the cells
+	*called every update
+	*/
 	void drawCells(Graphics g) {
 		// Have each cell draw itself
 		for (int row = 0; row < ROWS; row++) {
@@ -151,16 +162,23 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 		}
 	}
 
-
+	/**
+	*draws the buttons
+	*called every update
+	*/
 	private void drawButtons() {
 		startStop.repaint();
 		clear.repaint();
 		next.repaint();
 	}
-
+	/**
+	*programs the clear button
+	*goes through every cell and sets it to dead
+	*repaints the board
+	*/
 	public void clear() {
-		for (int g = 0; g < 100; g++) {
-			for (int h = 0; h < 80 ; h++) {
+		for (int g = 0; g < COLS; g++) {
+			for (int h = 0; h < ROWS; h++) {
 				System.out.println(cell[h][g].getAlive());
 				cell[h][g].setAlive(false);
 				cell[h][g].setAliveNextTurn(false);
@@ -176,8 +194,8 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 	*/
 	private void nextGeneration() {
 		// Decides whether to kill a cell, keep it alive, or bring it to life
-		for (int j = 0; j < 100; j++) {
-			for (int i = 0; i < 80 ; i++) {
+		for (int j = 0; j < COLS; j++) {
+			for (int i = 0; i < ROWS ; i++) {
 				cell[i][j].calcNeighbors(cell); // updates number of neighbors for each cell
 				if(cell[i][j].getAlive()==true){ //logic for when cell is alive
 					if(cell[i][j].getNeighbors()<4 && cell[i][j].getNeighbors()>1){
@@ -195,8 +213,8 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 			}
 		}
 
-		for (int a = 0; a < 100; a++) {
-			for (int b = 0; b < 80 ; b++) {
+		for (int a = 0; a < COLS; a++) {
+			for (int b = 0; b < ROWS ; b++) {
 
 				cell[b][a].setAlive(cell[b][a].getAliveNextTurn());
 				
@@ -205,13 +223,17 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 		repaint(); //moved repaint to bottom of next generation because it repaints the whole board 
 	}
 
-
+	/**
+	*calculates which cell is being clicked and makes sure it is in boundaries
+	*sets the cell to opposite of the current state
+	*@param arg0 object that knows where the mouse is 
+	*/
 	public void mouseClicked(MouseEvent arg0) {
 		int CellX = (arg0.getX() -X_GRID_OFFSET)/(CELL_WIDTH+1);
 		int CellY = (arg0.getY()-Y_GRID_OFFSET)/(CELL_HEIGHT+1);
-		if((CellX>=0 && CellX<=99) && (CellY>=0 && CellY<=79)){
+		if((CellX>=0 && CellX<=COLS-1) && (CellY>=0 && CellY<=ROWS-1)){
 
-			getCell(arg0).setAlive(!getCell(arg0).getAlive());
+			getCell(arg0).setAlive(!getCell(arg0).getAlive()); //makes cell go to opposite state
 
 			repaint();
 
@@ -246,13 +268,16 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 
 	}
 
-
+	/**
+	*calculates the cells that the mouse is dragged over and sets them to the opposite state
+	*@param arg0 object that knows where the mouse is
+	*/
 	public void mouseDragged(MouseEvent arg0) {
 
 		int CellX = (arg0.getX() -X_GRID_OFFSET)/(CELL_WIDTH+1);
 		int CellY = (arg0.getY()-Y_GRID_OFFSET)/(CELL_HEIGHT+1);
 
-		if((CellX>=0 && CellX<=99) && (CellY>=0 && CellY<=79)){
+		if((CellX>=0 && CellX<=COLS-1) && (CellY>=0 && CellY<=ROWS-1)){
 
 
 
