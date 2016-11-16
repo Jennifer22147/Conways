@@ -77,8 +77,12 @@ public class Cell {
 		myNeighbors= neighbors;
 	}
 
-	public void calcNeighbors(Cell[][] cell) {
-		int myNeighbors = 0;
+	/**
+	* calculates number of neighbors and sets myNeighbors
+	* @param Cell[][] board array of all of the cells
+	*/
+	public void calcNeighbors(Cell[][] board) {
+		int neighbors_temp = 0;
 		
 		for (int i = getY() -1; i <= getY() + 1; i++){
 			
@@ -93,19 +97,19 @@ public class Cell {
 					continue;
 				}
 				
-				if (cell[i][j].getAlive()){
-					myNeighbors++;
+				if (board[i][j].getAlive()){
+					neighbors_temp++;
 				}
 				
 			}
 			
 		}
 		
-		if (cell[getY()][getX()].getAlive()){
-			myNeighbors--;
+		if (board[getY()][getX()].getAlive()){
+			neighbors_temp--;
 		}
 
-		cell[getY()][getX()].setNeighbors(myNeighbors);
+		board[getY()][getX()].setNeighbors(neighbors_temp);
 	}
 	
 	
