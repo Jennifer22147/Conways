@@ -72,10 +72,6 @@ public class Cell {
 	public int getNeighbors() {
 		return myNeighbors;
 	}
-	
-	public void setNeighbors(int neighbors){	
-		myNeighbors= neighbors;
-	}
 
 	/**
 	* calculates number of neighbors and sets myNeighbors
