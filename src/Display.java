@@ -171,12 +171,15 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 		}
 	}
 
-
+	/**
+	*calculates the cells alive for the next generation and repaints the board accordingly
+	*/
 	private void nextGeneration() {
+		// Decides whether to kill a cell, keep it alive, or bring it to life
 		for (int j = 0; j < 100; j++) {
 			for (int i = 0; i < 80 ; i++) {
-				cell[i][j].calcNeighbors(cell);
-				if(cell[i][j].getAlive()==true){
+				cell[i][j].calcNeighbors(cell); // updates number of neighbors for each cell
+				if(cell[i][j].getAlive()==true){ //logic for when cell is alive
 					if(cell[i][j].getNeighbors()<4 && cell[i][j].getNeighbors()>1){
 						cell[i][j].setAliveNextTurn(true);
 					}
@@ -184,8 +187,10 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 						cell[i][j].setAliveNextTurn(false);
 					}
 				}
-				if (cell[i][j].getAlive()==false && cell[i][j].getNeighbors()==3){
-					cell[i][j].setAliveNextTurn(true);
+				else{
+					if(cell[i][j].getNeighbors()==3){
+						cell[i][j].setAliveNextTurn(true);
+					}
 				}
 			}
 		}
@@ -194,9 +199,10 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 			for (int b = 0; b < 80 ; b++) {
 
 				cell[b][a].setAlive(cell[b][a].getAliveNextTurn());
-				repaint();
+				
 			}
 		}
+		repaint(); //moved repaint to bottom of next generation because it repaints the whole board 
 	}
 
 
