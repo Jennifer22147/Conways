@@ -104,13 +104,8 @@ public class Cell {
 		if (cell[getY()][getX()].getAlive()){
 			myNeighbors--;
 		}
-<<<<<<< HEAD
-        System.out.println(myNeighbors);	
-        cell[getY()][getX()].setNeighbors(myNeighbors);
-        
-=======
-       cell[getY()][getX()].setNeighbors(myNeighbors);
->>>>>>> ca3216c48fdeeea8b2085caad09d4cbd7acbceb8
+
+		cell[getY()][getX()].setNeighbors(myNeighbors);
 	}
 	
 	
