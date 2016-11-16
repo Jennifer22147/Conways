@@ -3,7 +3,11 @@
 
 import java.awt.Color;
 import java.awt.Graphics;
-
+/**
+*one Cell is one cell in the board
+*keeps track of where on the board and alive or dead
+*keeps track of its neighbors and draws itself
+*/
 public class Cell {
 	private int myX, myY; // x,y position on grid
 	private boolean myAlive; // alive (true) or dead (false)
