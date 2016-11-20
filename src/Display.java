@@ -40,6 +40,11 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 	private boolean paintloop = false;
 
 
+	/**
+	 * Display: initializes display width and height
+	 * @param width: the set width of display
+	 * @param height: the set height of display
+	 */
 	public Display(int width, int height) {
 		DISPLAY_WIDTH = width;
 		DISPLAY_HEIGHT = height;
@@ -47,6 +52,7 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 	}
 
 
+	
 	public void init() {
 		setSize(DISPLAY_WIDTH, DISPLAY_HEIGHT);
 		initCells();
@@ -73,7 +79,7 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 
 
 	public void paintComponent(Graphics g) {
-		final int TIME_BETWEEN_REPLOTS = 100; // change to your liking
+		final int TIME_BETWEEN_REPLOTS = 10; // change to your liking
 
 		g.setColor(Color.BLACK);
 		drawGrid(g);
@@ -137,7 +143,6 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 		}
 	}
 
-
 	void drawCells(Graphics g) {
 		// Have each cell draw itself
 		for (int row = 0; row < ROWS; row++) {
@@ -170,7 +175,9 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 
 		}
 	}
-
+/**
+ * nextGeneration: if a cell is alive with 2 or 3 neighbors, paints cell alive in next turn 
+ */
 
 	private void nextGeneration() {
 		for (int j = 0; j < 100; j++) {
@@ -199,7 +206,10 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 		}
 	}
 
-
+/**
+ * mouseClicked: occurs when the mouse is pressed and released
+ * @param takes in set code from MouseEvent
+ */
 	public void mouseClicked(MouseEvent arg0) {
 		int CellX = (arg0.getX() -X_GRID_OFFSET)/(CELL_WIDTH+1);
 		int CellY = (arg0.getY()-Y_GRID_OFFSET)/(CELL_HEIGHT+1);
@@ -209,7 +219,7 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 
 			repaint();
 
-		}				
+		}		
 	}
 
 
@@ -240,7 +250,10 @@ public class Display extends JComponent implements MouseListener, MouseMotionLis
 
 	}
 
-
+	/**
+	 * mouseDragged: occurs when the mouse button is pressed and the position of the mouse changes
+	 * @param arg0 takes in set code from the MouseEvent to activate the function 
+	 */
 	public void mouseDragged(MouseEvent arg0) {
 
 		int CellX = (arg0.getX() -X_GRID_OFFSET)/(CELL_WIDTH+1);

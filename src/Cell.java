@@ -13,10 +13,22 @@ public class Cell {
 	private final Color DEFAULT_ALIVE = Color.ORANGE;
 	final Color DEFAULT_DEAD = Color.GRAY;
 
+	/**
+	 * Cell: default color of cell is gray when not Alive
+	 * @param x: the position of x
+	 * @param y: the position of y
+	 */
 	public Cell(int x, int y) {
 		this(x, y, false, Color.GRAY);
 	}
 
+	/**
+	 * initializes variables
+	 * @param row: the y-coordinate of the cell
+	 * @param col: the x-coordinate of the cell
+	 * @param alive: if cell is alive or not
+	 * @param color: the set color of cell
+	 */
 	public Cell(int row, int col, boolean alive, Color color) {
 		myAlive = alive;
 		myColor = color;
@@ -73,19 +85,20 @@ public class Cell {
 		return myNeighbors;
 	}
 	
-	public void setNeighbors(int neighbors){	
-		myNeighbors= neighbors;
-	}
-
+/**
+ * calcNeighbors: calculates the number of neighbors that a cell has
+ * @param cell: the current position of the cell
+ */
 	public void calcNeighbors(Cell[][] cell) {
 		int myNeighbors = 0;
 		
-		for (int i = getY() -1; i <= getY() + 1; i++){
+		for (int i = getY() -1; i <= getY() + 1; i++){ 
 			
 			if (i== -1 || i == 80){
 				continue; 
 			}
 			
+		
 			
 			for (int j = getX() -1; j <= getX() + 1; j++ ){
 				
@@ -104,23 +117,18 @@ public class Cell {
 		if (cell[getY()][getX()].getAlive()){
 			myNeighbors--;
 		}
-<<<<<<< HEAD
-        System.out.println(myNeighbors);	
-        cell[getY()][getX()].setNeighbors(myNeighbors);
-        
-=======
-       cell[getY()][getX()].setNeighbors(myNeighbors);
->>>>>>> ca3216c48fdeeea8b2085caad09d4cbd7acbceb8
+		cell[getY()][getX()].setNeighbors(myNeighbors);
 	}
 	
 	
-	
-		
-		
-		
-		
-		
-	
+	/** 
+	 * draw: temporarily recolors the cell 
+	 * @param x_offset: the x position of the cell pressed
+	 * @param y_offset: the y position of the cell pressed
+	 * @param width: width of cell
+	 * @param height: height of cell
+	 * @param g: the color of the cell
+	 */
 	
 	public void draw(int x_offset, int y_offset, int width, int height,
 			Graphics g) {
